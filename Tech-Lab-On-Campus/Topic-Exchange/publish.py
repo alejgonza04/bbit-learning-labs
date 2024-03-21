@@ -25,16 +25,15 @@ def main(ticker: str, price: float, sector: str) -> None:
     #                       WRITE CODE HERE!!!
     #
 
-
-    producer = mqProducer(routing_key=routingKey,exchange_name="Tech Lab Topic Exchange")
+    producer = mqProducer(routing_key=sector,exchange_name="Tech Lab Topic Exchange")
 
 
     # Implement Logic To Create a message variable from the variable EG. "TSLA price is now $500" - Step 3
     #
     #                       WRITE CODE HERE!!!
     #
-    
-    
+    message = f"{ticker} is ${price}"
+
     producer.publishOrder(message)
 
 if __name__ == "__main__":
@@ -43,5 +42,15 @@ if __name__ == "__main__":
     #
     #                       WRITE CODE HERE!!!
     #
+    ticker = None
+    price = None
+    sector = None
+    for i in range(1, len(sys.argv)):
+        if sys.argv[i] == "-t":
+            ticker = sys.argv[i + 1]
+        elif sys.argv[i] == "-p":
+            price = sys.argv[i + 1]
+        elif sys.argv[i] == "-s":
+            sector = sys.argv[i + 1]
 
     sys.exit(main(ticker,price,sector))
